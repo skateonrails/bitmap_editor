@@ -43,4 +43,11 @@ describe Pixel do
       end
     end
   end
+
+  describe "#to_s" do
+    it "should print colour that was set" do
+      pixel.colour = "Z"
+      expect(pixel.to_s).to eq("Z")
+    end
+  end
 end

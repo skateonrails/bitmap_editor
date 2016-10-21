@@ -14,4 +14,8 @@ class Pixel
       @colour = colour_string
     end
   end
+
+  def to_s
+    @colour
+  end
 end
