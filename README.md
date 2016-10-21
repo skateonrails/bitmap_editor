@@ -7,3 +7,6 @@ To run the program, use the following command
 ```ruby runner.rb```
 
 You can use the ```?``` as a input for help.
+
+## Running specs
+To run specs, you can use the ```rspec``` command
