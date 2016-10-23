@@ -1,8 +1,9 @@
-require 'matrix'
+require File.join(File.dirname(__FILE__), %w(.. lib mutable_matrix.rb))
 
 class Image
   InvalidRowsCount = Class.new(StandardError)
   InvalidColsCount = Class.new(StandardError)
+  PixelNotFound = Class.new(StandardError)
 
   attr_accessor :rows, :cols
 
@@ -10,12 +11,23 @@ class Image
     @rows = rows
     @cols = cols
     check_parameters
-
-    @bitmap = Matrix.build(@rows, @cols){ |row, col| Pixel.new }
+    clear
   end
 
-  def [](row, col)
-    @bitmap[row, col]
+  def clear
+    @bitmap = MutableMatrix.build(@rows, @cols){ |row, col| Pixel.new }
+  end
+
+  def set_pixel_colour(row, col, colour)
+    pixel = get_pixel(row, col)
+    pixel.colour = colour
+    @bitmap[row, col] = pixel
+  end
+
+  def get_pixel(row, col)
+    pixel = @bitmap[row, col]
+    raise PixelNotFound if pixel.nil?
+    pixel
   end
 
   def to_s

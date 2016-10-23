@@ -4,9 +4,9 @@ describe Image do
   describe "#initialize" do
     it "should receive rows and cols (X and Y) to create a initial pixel mapping" do
       image = Image.new(rows: 1, cols:1)
-      expect(image.rows).to eq(1)
-      expect(image.cols).to eq(1)
-      expect(image[0, 0]).to be_a(Pixel)
+      expect( image.rows ).to eq(1)
+      expect( image.cols ).to eq(1)
+      expect( image.get_pixel(0, 0) ).to be_a(Pixel)
     end
 
     context "setting rows value" do
@@ -50,18 +50,35 @@ describe Image do
     end
   end
 
-  describe "#[]" do
+  describe "#get_pixel" do
     let(:image) { Image.new(rows: 3, cols: 4) }
 
     context "get element in valid range" do
       it "should return a Pixel object" do
-        expect(image[1, 2]).to be_a(Pixel)
+        expect( image.get_pixel(1, 2) ).to be_a(Pixel)
       end
     end
 
     context "get element in invalid range" do
-      it "should return nil" do
-        expect(image[5, 6]).to be_nil
+      it "should raise error" do
+        expect{ image.get_pixel(5, 6) }.to raise_error(Image::PixelNotFound)
+      end
+    end
+  end
+
+  describe "#set_pixel_colour" do
+    let(:image) { Image.new(rows: 3, cols: 4) }
+
+    context "using a valid range" do
+      it "should set new color for pixel" do
+        image.set_pixel_colour(1, 2, "A")
+        expect( image.get_pixel(1,2).to_s ).to eq("A")
+      end
+    end
+
+    context "using an invalid range" do
+      it "should raise error" do
+        expect{ image.set_pixel_colour(5, 6, "A") }.to raise_error(Image::PixelNotFound)
       end
     end
   end
@@ -69,7 +86,12 @@ describe Image do
   describe "#to_s" do
     it "should print the representation of image bitmap" do
       image = Image.new(rows: 3, cols: 4)
-      expect(image.to_s).to eq("OOOO\nOOOO\nOOOO")
+      expect( image.to_s ).to eq("OOOO\nOOOO\nOOOO")
+    end
+  end
+
+  describe "#clear" do
+    it "should reset pixel matrix to it's default value" do
     end
   end
 end
