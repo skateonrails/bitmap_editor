@@ -1,3 +1,5 @@
+require 'matrix'
+
 class Image
   InvalidRowsCount = Class.new(StandardError)
   InvalidColsCount = Class.new(StandardError)
@@ -14,7 +16,7 @@ class Image
   end
 
   def clear
-    @bitmap = MutableMatrix.build(@rows, @cols){ |row, col| Pixel.new }
+    @bitmap = Matrix.build(@rows, @cols){ |row, col| Pixel.new }
   end
 
   def set_pixel_colour(row, col, colour)
