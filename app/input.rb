@@ -18,7 +18,7 @@ class Input
   private
   def parse
     input_parameters = @input_string.split(' ')
-    raise InvalidInput if input_parameters.empty?
+    invalid_input_with_default_message if input_parameters.empty?
 
     @command = input_parameters.shift
     raise UnsupportedCommand, "unrecognised command :(" unless SUPPORTED_COMMANDS.include?( @command )
@@ -49,14 +49,18 @@ class Input
   end
 
   def check_image_creation_parameters(input_parameters)
-    raise InvalidInput if input_parameters[0].nil? || input_parameters[1].nil? || input_parameters.size > 2
+    invalid_input_with_default_message if input_parameters[0].nil? || input_parameters[1].nil? || input_parameters.size > 2
   end
 
   def check_colour_set_parameters(input_parameters)
-    raise InvalidInput if input_parameters[0].nil? || input_parameters[1].nil? || input_parameters[2].nil? || input_parameters.size > 3
+    invalid_input_with_default_message if input_parameters[0].nil? || input_parameters[1].nil? || input_parameters[2].nil? || input_parameters.size > 3
   end
 
   def check_range_parameters(input_parameters)
-    raise InvalidInput if input_parameters[0].nil? || input_parameters[1].nil? || input_parameters[2].nil? || input_parameters[3].nil? || input_parameters.size > 4
+    invalid_input_with_default_message if input_parameters[0].nil? || input_parameters[1].nil? || input_parameters[2].nil? || input_parameters[3].nil? || input_parameters.size > 4
+  end
+
+  def invalid_input_with_default_message
+    raise InvalidInput, "invalid parameters. See '?' for more information."
   end
 end
