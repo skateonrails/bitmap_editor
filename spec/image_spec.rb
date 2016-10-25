@@ -79,6 +79,7 @@ describe Image do
         it "should set new color for pixel" do
           image.set_pixel_colour(1, 2, "A")
           expect( image.get_pixel(1,2).to_s ).to eq("A")
+          expect( image.get_pixel(2,3).to_s ).not_to eq("A")
         end
       end
 

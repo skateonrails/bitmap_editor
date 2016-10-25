@@ -21,7 +21,6 @@ class Image
   def set_pixel_colour(row, col, colour)
     pixel = self.get_pixel(row, col)
     pixel.colour = colour
-    @bitmap[row, col] = pixel
   end
 
   def get_pixel(row, col)
