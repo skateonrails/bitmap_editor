@@ -12,8 +12,10 @@ class Input
     @row = nil
     @col = nil
     @colour = nil
+    parse
   end
 
+  private
   def parse
     input_parameters = @input_string.split(' ')
     raise InvalidInput if input_parameters.empty?
@@ -46,8 +48,6 @@ class Input
     end
   end
 
-  private
-  
   def check_image_creation_parameters(input_parameters)
     raise InvalidInput if input_parameters[0].nil? || input_parameters[1].nil? || input_parameters.size > 2
   end
