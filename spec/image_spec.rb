@@ -68,7 +68,7 @@ describe Image do
 
       context "use non-integer values to get pixel" do
         it "should raise error" do
-          expect{ image.get_pixel(5.12, "A") }.to raise_error(Image::InvalidRowsCount)
+          expect{ image.get_pixel(5.12, 1) }.to raise_error(Image::InvalidRowsCount)
           expect{ image.get_pixel(5, "A") }.to raise_error(Image::InvalidColsCount)
         end
       end

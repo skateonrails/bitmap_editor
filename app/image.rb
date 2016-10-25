@@ -47,23 +47,23 @@ class Image
 
   private
   def check_parameters(rows, cols)
-    check_rows_value(rows)
     check_cols_value(cols)
+    check_rows_value(rows)
   end
 
   def check_rows_value(rows)
-    error_message = check_value(rows)
+    error_message = check_value(rows, "Rows")
     raise InvalidRowsCount, error_message unless error_message.empty?
   end
 
   def check_cols_value(cols)
-    error_message = check_value(cols)
+    error_message = check_value(cols, "Columns")
     raise InvalidColsCount, error_message unless error_message.empty?
   end
 
-  def check_value(value)
-    return "value must be a integer" unless value.is_a?(Integer)
-    return "value must be between 0 and 250" if value < 1 || value > 250
+  def check_value(value, type)
+    return "#{type} value must be a integer" unless value.is_a?(Integer)
+    return "#{type} value must be between 1 and 250" if value < 1 || value > 250
     return ""
   end
 end
