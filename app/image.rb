@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), %w(.. lib mutable_matrix.rb))
-
 class Image
   InvalidRowsCount = Class.new(StandardError)
   InvalidColsCount = Class.new(StandardError)
