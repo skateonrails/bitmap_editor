@@ -2,6 +2,7 @@ class Image
   InvalidRowsCount = Class.new(StandardError)
   InvalidColsCount = Class.new(StandardError)
   PixelNotFound = Class.new(StandardError)
+  InvalidPixelRange = Class.new(StandardError)
 
   attr_accessor :rows, :cols
 
@@ -25,17 +26,19 @@ class Image
     check_parameters(row, col)
 
     pixel = @bitmap[row-1, col-1]
-    raise PixelNotFound if pixel.nil?
+    raise PixelNotFound, "pixel not found" if pixel.nil?
     pixel
   end
 
   def set_vertical_pixel_colour_segment(col, row_range, colour)
+    raise InvalidPixelRange, "invalid range of pixels" unless valid_pixel_range?(row_range, @rows)
     row_range.each do |row|
       self.set_pixel_colour(row, col, colour)
     end
   end
 
   def set_horizontal_pixel_colour_segment(col_range, row, colour)
+    raise InvalidPixelRange, "invalid range of pixels" unless valid_pixel_range?(col_range, @cols)
     col_range.each do |col|
       self.set_pixel_colour(row, col, colour)
     end
@@ -65,5 +68,13 @@ class Image
     return "#{type} value must be a integer" unless value.is_a?(Integer)
     return "#{type} value must be between 1 and 250" if value < 1 || value > 250
     return ""
+  end
+
+  def valid_pixel_range?(range, ref)
+    sorted_range = range.sort
+    first_in_range = sorted_range.first
+    last_in_range = sorted_range.last
+
+    !first_in_range.nil? && first_in_range > 0 && !last_in_range.nil? && last_in_range <= ref
   end
 end

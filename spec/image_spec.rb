@@ -102,7 +102,8 @@ describe Image do
 
       context "using an invalid range" do
         it "should raise error" do
-          expect{ image.set_vertical_pixel_colour_segment(5, 4..6, "A") }.to raise_error(Image::PixelNotFound)
+          expect{ image.set_vertical_pixel_colour_segment(5, 4..6, "A") }.to raise_error(Image::InvalidPixelRange)
+          expect{ image.set_vertical_pixel_colour_segment(5, 3..-6, "A") }.to raise_error(Image::InvalidPixelRange)
         end
       end
     end
@@ -120,7 +121,8 @@ describe Image do
 
       context "using an invalid range" do
         it "should raise error" do
-          expect{ image.set_horizontal_pixel_colour_segment(5..7, 6, "A") }.to raise_error(Image::PixelNotFound)
+          expect{ image.set_horizontal_pixel_colour_segment(5..7, 6, "A") }.to raise_error(Image::InvalidPixelRange)
+          expect{ image.set_horizontal_pixel_colour_segment(4..-7, 3, "A") }.to raise_error(Image::InvalidPixelRange)
         end
       end
     end
