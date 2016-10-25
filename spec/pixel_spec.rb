@@ -19,27 +19,21 @@ describe Pixel do
       end
 
       context "using lowercase letter as colour" do
-        it "should not set colour" do
-          pixel.colour = "a"
-          expect(pixel.colour).to eq("O")
-          pixel.colour = "A"
-          pixel.colour = "a"
-          expect(pixel.colour).to eq("A")
+        it "should raise error" do
+          expect{ pixel.colour = "a" }.to raise_error(Pixel::InvalidColour)
         end
       end
     end
 
     context "using more than one letter" do
-      it "should not set colour" do
-        pixel.colour = "AA"
-        expect(pixel.colour).to eq("O")
+      it "should raise error" do
+        expect{ pixel.colour = "AA" }.to raise_error(Pixel::InvalidColour)
       end
     end
 
     context "using numbers" do
       it "should not set colour" do
-        pixel.colour = 1
-        expect(pixel.colour).to eq("O")
+        expect{ pixel.colour = 1 }.to raise_error(Pixel::InvalidColour)
       end
     end
   end
